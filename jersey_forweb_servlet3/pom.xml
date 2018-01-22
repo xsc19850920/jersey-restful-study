@@ -58,7 +58,23 @@
 		<!-- uncomment this to get JSON support <dependency> <groupId>org.glassfish.jersey.media</groupId> <artifactId>jersey-media-moxy</artifactId> </dependency> -->
 
 		<!-- needed for web.xml-less deploy -->
+		 <!-- for file upload -->
+        <dependency>
+		   <groupId>javax.servlet</groupId>
+		   <artifactId>javax.servlet-api</artifactId>
+		   <version>3.1.0</version>
+		   <scope>runtime</scope>
+		</dependency>
+        <dependency>
+		    <groupId>org.glassfish.jersey.media</groupId>
+		    <artifactId>jersey-media-multipart</artifactId>
+		</dependency>
 		
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
 	</dependencies>
 	<properties>
 		<jersey.version>2.16</jersey.version>

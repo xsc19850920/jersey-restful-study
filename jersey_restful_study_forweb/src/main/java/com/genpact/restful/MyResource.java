@@ -43,31 +43,34 @@ public class MyResource {
  
     
     @POST
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public String postForm(
-        @DefaultValue("true") @FormDataParam("enabled") boolean enabled,
-//        @FormDataParam("data") FileData bean,
-        @FormDataParam("file") InputStream file,
-        @FormDataParam("file") FormDataContentDisposition fileDisposition,
-    	@Context ServletContext context ) throws FileNotFoundException, IOException {
-    	String fileName = fileDisposition.getFileName();
-    	System.out.println("desc ++++++++++++++++++++++++++++");
-    	System.out.println(fileName);
-    	System.out.println(fileDisposition.getName());
-    	System.out.println(fileDisposition.getSize());
-    	System.out.println(fileDisposition.getType());
-    	System.out.println("desc ++++++++++++++++++++++++++++");
-    	
-    	File destFile = new File(context.getRealPath("/upload")+File.separator+UUID.randomUUID().toString()+fileName.substring(fileName.lastIndexOf(".")));
-    	if(null != destFile ){
-    		if(!destFile.exists()){
-    			destFile.getParentFile().mkdirs();
-    		}
-    	}
+	@Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response postForm(@DefaultValue("true") @FormDataParam("enabled") boolean enabled,
+					    // @FormDataParam("data") FileData bean,
+						   @FormDataParam("file") InputStream file, 
+						   @FormDataParam("file") FormDataContentDisposition fileDisposition,
+						   @Context ServletContext context) throws FileNotFoundException, IOException {
+		
+		//random new file name
+		String fileName = fileDisposition.getFileName();
+		String ext = fileName.substring(fileName.lastIndexOf("."));
+		String randomFileNanem = UUID.randomUUID().toString() + ext;
+		
+		//print disposition
+		System.out.println("desc ++++++++++++++++++++++++++++");
+		System.out.println(fileName);
+		System.out.println(fileDisposition.getName());
+		System.out.println(fileDisposition.getSize());
+		System.out.println(fileDisposition.getType());
+		System.out.println("desc ++++++++++++++++++++++++++++");
+		
+		//copy file into servlet path 
+		File destFile = new File(context.getRealPath("/upload") + File.separator + randomFileNanem);
+		if ((null != destFile) && (!destFile.exists())) {
+			destFile.getParentFile().mkdirs();
+		}
     	IOUtils.copy(file, new FileOutputStream(destFile));
     	
-    	
-     return null;
-        // ...
+    	return Response.ok().build();
     }
 }

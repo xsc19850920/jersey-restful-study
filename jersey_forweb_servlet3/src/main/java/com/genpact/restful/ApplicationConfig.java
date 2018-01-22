@@ -27,6 +27,7 @@ public class ApplicationConfig extends  ResourceConfig{
 	
 	public ApplicationConfig() {
 		packages("com.genpact.restful");
+		property("jersey.config.server.provider.classnames", "org.glassfish.jersey.filter.LoggingFilter;  org.glassfish.jersey.media.multipart.MultiPartFeature");
 	}
 	
    
