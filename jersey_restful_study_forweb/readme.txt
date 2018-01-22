@@ -13,3 +13,22 @@
 	mvn clean compile -DskipTests 
 4. 运行	
 	http://localhost:8080/jersey_restful_study_forweb/
+	
+	
+	
+	
+	
+	for file upload
+1.0 add 	
+		<dependency>
+		    <groupId>org.glassfish.jersey.media</groupId>
+		    <artifactId>jersey-media-multipart</artifactId>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-io -->
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>1.3.2</version>
+		</dependency>
+	
